@@ -457,6 +457,7 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 - 所有页面 h1/h2 与大标题 helper 固定 `line-height:1.3`;卡片内的小标题继续按组件规则排版
 - 所有页面级标题与主要正文的每个视觉行至少包含 2 个有效字符,禁止孤字成行;KPI/编号不属于正文
 - 16px 左右的小字拒绝使用 weight 300(太细不可读),最低 400,推荐 500
+- 巨型数字后的英文单位或短标签使用 `.kpi-unit-label`，必须重置数字的负字距：`letter-spacing:.1em`、`margin-left:.22em`；禁止让 `RULES`、`MIN`、`SXX` 等继承 KPI 数字的负字距。
 - 封面品牌橙底大标题与内部强调字都用白色正体 weight 500
 
 组件细节(字体、颜色、网格、图标、callout、stat-card 等)在 `references/components.md`。
