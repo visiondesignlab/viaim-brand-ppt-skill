@@ -29,6 +29,10 @@ Skill 会从 `assets/template.html` 或 `assets/template-swiss.html` 生成单�
 
 第一次使用或需要转交同事时,直接阅读 [`QUICKSTART.md`](./QUICKSTART.md)。里面包含安装、首条提示词、素材准备、交付校验和常见修改指令。
 
+## 可运行示例
+
+[`examples/viaim-brand-ppt-test-30p/`](./examples/viaim-brand-ppt-test-30p/) 包含同一份 30 页内容的完整 HTML 演示版和原生可编辑 PPTX，可用于预览所有登记版式、检查交互，或直接下载 PowerPoint 版测试跨平台编辑。
+
 ## 品牌文件
 
 - `SKILL.md`:触发规则与生成工作流
@@ -58,3 +62,7 @@ node scripts/validate-chinese-typesetting.mjs path/to/index.html
 ```text
 BRAND_THEME_OK palette=5
 ```
+
+## 来源声明
+
+本项目最初 fork 自 [op7418/guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill),现已重构为 viaim 品牌专用 Skill;仓库不包含上游的品牌信息、作者展示素材或截图背景资产。许可条款见 [`LICENSE`](./LICENSE)。

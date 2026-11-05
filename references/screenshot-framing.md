@@ -27,7 +27,7 @@
    - 要保真:程序化适配,不重画截图。
    - 要统一视觉但不改内容:程序化适配 + 主题背景。
    - 原图不可用或需要解释概念:再走 GPT-M 2.0 截图再设计。
-3. **再选择背景**:优先使用内置背景资产,不应该每张截图临时生成一种风格。
+3. **再选择背景**:使用五色品牌 token 构建可重复的纯色、纸感或网格背景,不应该每张截图临时生成一种风格。
 4. **最后合成截图**:创建目标比例画布,背景 cover 铺满,截图等比缩放后按 `padding` 和 `alignment` 放入。
 
 默认不要裁掉截图内容。只有截图已经按目标槽位重新生成,或者用户明确允许裁切时,才使用 cover 裁切。
@@ -53,7 +53,7 @@
 - 背景: `paper` / `blurred` / 低饱和 `gradient`
 - 质感:纸张、墨水、胶片颗粒、暖白、低对比
 - 截图:可用小圆角和轻微阴影,但不要像 SaaS 营销卡片
-- 背景资产:优先使用中性的 `assets/screenshot-backgrounds/style-a/monocle-classic.webp`,再用 `var(--brand)` 增加低占比品牌线或标签
+- 背景:使用 Signal Fog 或 Blank State 作为基底,再以 Vision Orange 增加低占比品牌线或标签
 - 推荐语义:
 
 ```text
@@ -65,7 +65,7 @@ ratio:16:10, background:paper, padding:standard, inset:balanced, shadow:editoria
 - 背景: `plain` / `grid` / `dot-matrix`
 - 色彩:只允许当前锚点色作为极低占比强调;不要大面积亮色块
 - 截图:直角、无阴影、无圆角、少量 hairline 或顶部 accent 线
-- 背景资产:优先使用 `--paper` 纯色画布 + `--accent` 发丝线/点阵程序化构图;不使用上游遗留的其他锚点色背景
+- 背景:优先使用 `--paper` 纯色画布 + `--accent` 发丝线/点阵程序化构图;不使用五色品牌系统之外的锚点色背景
 - 推荐语义:
 
 ```text
@@ -84,14 +84,14 @@ ratio:21:9, background:grid, padding:standard, inset:subtle, shadow:none, corner
 
 ## 品牌背景策略
 
-上游内置背景仍保留在 `assets/screenshot-backgrounds/` 作为兼容资产,但其中的 IKB、柠檬黄、柠檬绿和旧安全橙不属于 viaim 品牌版,默认禁止使用。
+仓库不内置截图背景素材。需要截图画布时,只使用 viaim 五色 token 程序化构建,或根据本节提示词重新生成无文字、无 Logo、无主体的背景。
 
 | 风格 | 默认背景 | 品牌处理 |
 |---|---|---|
-| Style A | `style-a/monocle-classic.webp` 中性纸张纹理 | 程序化加入一条 `#FF3B0F` 细线、短标签或角标,视觉占比不超过 8% |
+| Style A | Signal Fog `#F2F1F1` 或 Blank State `#FFFFFF` 纯色画布 | 程序化加入一条 `#FF3B0F` 细线、短标签或角标,视觉占比不超过 8% |
 | Style B | Signal Fog `#F2F1F1` 页面底 + Blank State `#FFFFFF` 卡片 | 用 Vision Orange `#FF3B0F` 构成 1px grid、点阵或单个直角色块,无渐变、阴影和圆角 |
 
-背景图之后由程序复用到每张截图中。不要把背景当作单张 slide 来画,背景内部不能有标题、页脚、logo、人物或明显主体。合成后再裁成 `21:9` / `16:10` / `4:3` / `1:1`,并保持四角安静。
+背景配方之后由程序复用到每张截图中。不要把背景当作单张 slide 来画,背景内部不能有标题、页脚、Logo、人物或明显主体。合成后再裁成 `21:9` / `16:10` / `4:3` / `1:1`,并保持四角安静。
 
 ## 截图类型决策
 
@@ -106,7 +106,7 @@ ratio:21:9, background:grid, padding:standard, inset:subtle, shadow:none, corner
 
 ## 生成背景图提示词
 
-只有需要新增背景资产时才使用本节。常规截图美化不要实时生成背景,直接使用上方内置资产。
+只有用户明确需要纸张、胶片或其他非纯色质感时才使用本节。常规截图美化直接使用五色品牌 token 构建画布。
 
 ### Style A 背景
 

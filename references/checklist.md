@@ -248,7 +248,7 @@ viaim 品牌覆盖后,页面标题固定 weight 500;纯数字 KPI 可保留较�
 - 图片容器只用 `.frame-img`;**不要** `border-radius` / `box-shadow`
 - UI / 信息图 / 流程图若是用户原始截图或文字密集图,使用 `.fit-contain`;若已按槽位重生成,必须用对应比例类铺满容器,例如 `.frame-img.r-21x9`,不能再用固定短高度把图片缩小
 - 多图同组必须统一槽位、比例、高度,不要混用
-- 用户原始截图要先读 `references/screenshot-framing.md`:优先用 `assets/screenshot-backgrounds/` 内置主题背景 + 程序化缩放/留边/对齐,不要为了比例统一就重画截图内容
+- 用户原始截图要先读 `references/screenshot-framing.md`:优先用五色品牌 token 程序化创建背景画布,再做缩放、留边与对齐,不要为了比例统一就重画截图内容
 - 截图背景必须跟随当前主题色,且可裁成 `21:9` / `16:10` / `4:3` / `1:1`;背景里不能有标题、页脚、边框、logo、人物或明显主体
 - GPT-M 2.0 提示词必须写明:Swiss Style、单一 accent、直角、无渐变/阴影/圆角、无页眉页脚标题角标
 

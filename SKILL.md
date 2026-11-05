@@ -154,7 +154,7 @@ test -f "<SKILL_ROOT>/scripts/validate-brand-theme.mjs"
 - **内容要求**:是否必须保留全部文字、品牌、数据?是否有敏感信息要遮挡?
 - **视觉处理**:是否需要主题背景、留边、居中/角落对齐、拆成长截图面板?
 
-默认策略:先让内容适配模板,再处理图片比例。截图需要保真时,先读 `references/screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产做程序化 CleanShot X 式背景画布适配;只有原截图太乱、太长、太窄或需要概念化表达时,才用 GPT-M 2.0 做截图再设计。
+默认策略:先让内容适配模板,再处理图片比例。截图需要保真时,先读 `references/screenshot-framing.md`,使用五色品牌 token 程序化创建 CleanShot X 式背景画布;只有原截图太乱、太长、太窄或需要概念化表达时,才用 GPT-M 2.0 做截图再设计。
 
 #### Codex 配图生成(可选)
 
@@ -168,7 +168,7 @@ test -f "<SKILL_ROOT>/scripts/validate-brand-theme.mjs"
 
 如果用户提供的是截图,先判断是**截图美化**还是**截图再设计**:
 
-- 截图美化:读 `references/screenshot-framing.md`,用内置主题背景 + 程序化缩放/留边/对齐处理,尽量不重画截图内容
+- 截图美化:读 `references/screenshot-framing.md`,用五色品牌 token 构建背景,再程序化缩放、留边与对齐,尽量不重画截图内容
 - 截图再设计:读 `references/image-prompts.md`,按当前版式槽位生成目标比例图片,并保持语言、主题色和边距一致
 
 生成配图时遵守:
@@ -177,7 +177,7 @@ test -f "<SKILL_ROOT>/scripts/validate-brand-theme.mjs"
 - 图片风格必须贴合当前 deck 风格:风格 A 用"电子杂志 × 电子墨水";风格 B 用"瑞士国际主义 / Swiss Style"
 - 信息图、图表、截图再设计里的文字语言必须跟随用户正在使用的语言;中文 deck 用中文,英文 deck 用英文
 - 先看 `references/image-prompts.md` 选择图片类型和基础提示词
-- 如果处理用户原始截图,先看 `references/screenshot-framing.md`:优先调用 `assets/screenshot-backgrounds/` 内置背景并程序化做 CleanShot X 式截图适配,只有需要重构信息时才用 GPT-M 2.0 重画
+- 如果处理用户原始截图,先看 `references/screenshot-framing.md`:优先用 Signal Fog、Blank State 与 Vision Orange 语义 token 程序化做 CleanShot X 式截图适配,只有需要重构信息时才用 GPT-M 2.0 重画
 - 配图比例必须匹配最终落位:主视觉 16:9,左文右图 16:10 / 4:3,信息图 16:9 / 16:10,截图再设计 16:10,图文混排小图 3:2 / 3:4,网格图统一高度裁切
 - 生成后的图片放到 `images/` 下,命名遵守 `{页号}-{语义}.{ext}`
 
@@ -619,7 +619,6 @@ viaim-brand-ppt-skill/
 │   ├── template.html         ← 风格 A · 电子杂志风模板（种子文件）
 │   ├── template-swiss.html   ← 风格 B · 瑞士国际主义风模板（种子文件）
 │   ├── logo/                 ← 原始 Logo 母版、SHA-256 与禁止变形规则
-│   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
 │   ├── validate-brand-theme.mjs ← viaim 品牌色、反色文字、旧锚点色与对比度守卫
@@ -642,7 +641,7 @@ viaim-brand-ppt-skill/
     ├── brand-colors.md       ← viaim 五色品牌真值源
     ├── chinese-typesetting.md ← CLReq + 中文文案排版指北的 PPT 执行规则
     ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
-    ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射
+    ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 五色品牌背景配方
     ├── presenter-mode.md     ← 演讲者 UI、AI 备注结构、观众屏同步与恢复契约
     ├── export-formats.md     ← HTML / 原生可编辑 PPTX 输出契约、命令与验收边界
     └── checklist.md          ← 质量检查清单（P0/P1/P2/P3 分级）
@@ -661,7 +660,7 @@ viaim-brand-ppt-skill/
    - 风格 A → `layouts.md`(顶部有 Pre-flight 类名清单、主题节奏规划、动效 recipe 决策树)
    - 风格 B → **先读 `swiss-layout-lock.md`**,再读 `layouts-swiss.md`;正文页必须从 S01-S22 选择,每页写 `data-layout`
 5. 如果风格 B 需要地点、路线、人物住所或城市关系地图,读 `swiss-map-component.md`
-6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
+6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,使用五色品牌 token 构建截图背景画布
 7. 需要复用页眉、数据、引用、流程、对比、图片或账单结构时先读 `brand-components.md`；细节调整再读 `components.md`（主要服务风格 A），风格 B 的具体骨架在 `layouts-swiss.md` 附录
 8. 正式演讲先读 `presenter-mode.md`,生成稳定页面 ID 和 `SPEAKER_NOTES`
 9. 生成后先运行 `validate-presenter-mode.mjs` 与 `validate-title-wrap.mjs`;风格 B 再运行 `validate-swiss-deck.mjs`,最后读 `checklist.md` 自检
